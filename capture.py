@@ -3,7 +3,8 @@ from datetime import datetime
 import os
 
 global thumbs_up, thumbs_down, nothing, one_finger_up, two_finger_up
-desktop_dir = "C:/Users/Trevo/Desktop/"
+#desktop_dir = "C:/Users/Trevo/Desktop/"
+desktop_dir = "C:/Users/Richa/Desktop/"
 
 
 def gather_data(num_samples):
