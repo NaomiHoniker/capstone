@@ -7,7 +7,7 @@ global thumbs_up, thumbs_down, nothing, one_finger_up, two_finger_up
 desktop_dir = "C:/Users/Richa/Desktop/"
 
 
-def gather_data(num_samples):
+def gather_data(num_samples, file_dir):
 
     # Initialize camera
     capture = cv2.VideoCapture(0, cv2.CAP_DSHOW)
@@ -21,9 +21,14 @@ def gather_data(num_samples):
     # Width of frame from camera properties
     width = int(capture.get(3))
 
+    # Default directory to desktop if no arg passed in
+    print("FILE DIR: " + file_dir)
+    if file_dir == "":
+        file_dir = desktop_dir
+
     # Time-Date And Directory Creation
     now = datetime.now()
-    cur_dir = desktop_dir + now.strftime("%d.%m.%Y %H;%M;%S")
+    cur_dir = file_dir + now.strftime("%d.%m.%Y %H;%M;%S")
     os.mkdir(cur_dir)
     os.chdir(cur_dir)
 
