@@ -2,12 +2,8 @@ import cv2
 from datetime import datetime
 import os
 
-global thumbs_up, thumbs_down, nothing, one_finger_up, two_finger_up
-#desktop_dir = "C:/Users/Trevo/Desktop/"
-desktop_dir = "C:/Users/Richa/Desktop/"
 
-
-def gather_data(num_samples, file_dir):
+def gather_data(letter_to_capture, num_samples, file_dir):
 
     # Initialize camera
     capture = cv2.VideoCapture(0, cv2.CAP_DSHOW)
@@ -21,15 +17,13 @@ def gather_data(num_samples, file_dir):
     # Width of frame from camera properties
     width = int(capture.get(3))
 
-    # Default directory to desktop if no arg passed in
-    print("FILE DIR: " + file_dir)
-    if file_dir == "":
-        file_dir = desktop_dir
-
-    # Time-Date And Directory Creation
+    # Date And Directory Creation
     now = datetime.now()
-    cur_dir = file_dir + now.strftime("%d.%m.%Y %H;%M;%S")
-    os.mkdir(cur_dir)
+    cur_dir = file_dir + now.strftime("%d.%m.%Y")
+    try:
+        os.mkdir(cur_dir)
+    except FileExistsError:
+        pass
     os.chdir(cur_dir)
 
     while True:
@@ -56,23 +50,7 @@ def gather_data(num_samples, file_dir):
 
             if k == ord('1'):
                 trigger_rec = not trigger_rec
-                class_name = 'one_finger_up'
-
-            if k == ord('2'):
-                trigger_rec = not trigger_rec
-                class_name = 'two_finger_up'
-
-            if k == ord('3'):
-                trigger_rec = not trigger_rec
-                class_name = 'thumbs_up'
-
-            if k == ord('4'):
-                trigger_rec = not trigger_rec
-                class_name = 'thumbs_down'
-
-            if k == ord('5'):
-                trigger_rec = not trigger_rec
-                class_name = 'nothing'
+                class_name = letter_to_capture
 
             if k == ord('q'):
                 break
