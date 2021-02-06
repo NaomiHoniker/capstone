@@ -16,7 +16,7 @@ while True:
     if event == sg.WIN_CLOSED or event == 'Exit':
         break
     elif event == 'Begin Capturing':
-        if values['letter'].isalpha() and len(values['letter']) == 1 and int(values['count']) > 0\
+        if values['letter'].isalpha() and int(values['count']) > 0\
                 and values['path'] is not "":
             print(values['path'])
             home_window.Hide()
