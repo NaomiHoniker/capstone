@@ -43,9 +43,6 @@ print(val_ds.class_names)
 train_ds = train_ds.cache().shuffle(1000).prefetch(buffer_size=tf.data.AUTOTUNE)
 val_ds = val_ds.cache().prefetch(buffer_size=tf.data.AUTOTUNE)
 
-# Normalize RGB channel values for the neural net
-normalization_layer = layers.experimental.preprocessing.Rescaling(1./255)
-
 
 # Begin model creation
 num_classes = len(next(os.walk(img_folder_name))[1])
@@ -54,6 +51,7 @@ num_classes = len(next(os.walk(img_folder_name))[1])
 # 3 convolution blocks with max pool layer in each
 # Fully connected layer with 128 units on top
 model = Sequential([
+    # Normalize RGB channel values for the neural net
     layers.experimental.preprocessing.Rescaling(1./255, input_shape=(img_height, img_width, 3)),
     layers.Conv2D(16, 3, padding='same', activation='relu'),
     layers.MaxPooling2D(),
