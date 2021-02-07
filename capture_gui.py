@@ -18,7 +18,6 @@ while True:
     elif event == 'Begin Capturing':
         if values['letter'].isalpha() and int(values['count']) > 0\
                 and values['path'] is not "":
-            print(values['path'])
             home_window.Hide()
             gather_data(values['letter'], int(values['count']), values['path'] + "/")
             home_window.UnHide()
