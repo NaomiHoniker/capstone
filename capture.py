@@ -10,6 +10,7 @@ def gather_data(letter_to_capture, num_samples, file_dir):
 
     trigger_rec = False
     counter = 0
+    image_num = 0
 
     # Interest size, images are saved as capture_zone -10
     capture_zone = 234
@@ -19,7 +20,7 @@ def gather_data(letter_to_capture, num_samples, file_dir):
 
     # Date And Directory Creation
     now = datetime.now()
-    cur_dir = file_dir + now.strftime("%d.%m.%Y")
+    cur_dir = file_dir + now.strftime("Session - %d.%m.%Y")
     try:
         os.mkdir(cur_dir)
     except FileExistsError:
@@ -41,8 +42,13 @@ def gather_data(letter_to_capture, num_samples, file_dir):
             interest = frame[5: capture_zone-5, width-capture_zone+5: width-5]
 
             counter += 1
+            image_num += 1
 
-            cv2.imwrite((class_name + str(counter) + ".jpg"), interest)
+            # Ensure existing Files in Session aren't overwritten
+            while os.path.exists(class_name + str(image_num) + ".jpg"):
+                image_num += 1
+
+            cv2.imwrite((class_name + str(image_num) + ".jpg"), interest)
 
         else:
             cv2.imshow("Collecting images", frame)
