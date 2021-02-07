@@ -4,7 +4,7 @@ import os
 
 sg.theme('DarkGrey6')
 
-home_window = sg.Window('Sign Language Interpreter', [[sg.Text('Input Capture Letter:'), sg.Input(key='letter')],
+home_window = sg.Window('Sign Language Interpreter', [[sg.Text('Input Capture Classifier:'), sg.Input(key='letter')],
                                                       [sg.Text('Amount of Consecutive Captures:'),
                                                        sg.Input(0, key='count')],
                                                       [sg.Text('Directory To Place Captured Image Folder'),
