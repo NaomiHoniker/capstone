@@ -1,6 +1,5 @@
 import PySimpleGUI as sg
 from capture import *
-import os
 
 sg.theme('DarkGrey6')
 

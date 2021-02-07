@@ -9,8 +9,7 @@ def gather_data(letter_to_capture, num_samples, file_dir):
     capture = cv2.VideoCapture(0, cv2.CAP_DSHOW)
 
     trigger_rec = False
-    counter = 0
-    image_num = 0
+    counter = image_num = 0
 
     # Interest size, images are saved as capture_zone -10
     capture_zone = 234
