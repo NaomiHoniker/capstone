@@ -7,6 +7,8 @@ from tensorflow.keras import layers
 from tensorflow.keras.models import Sequential
 
 # Creation parameters
+import figure_creation
+
 img_folder_name = "rps_images"
 
 batch_size = 32
@@ -68,4 +70,14 @@ model.compile(optimizer='adam',
               loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
               metrics=['accuracy'])
 
-model.summary()
+epochs = 10
+history = model.fit(
+    train_ds,
+    validation_data=val_ds,
+    epochs=epochs
+)
+
+# Visualization on first 9 images in the training set
+figure_creation.save_first_9(train_ds)
+# Save results of model accuracies
+figure_creation.save_training_results(history, epochs)
