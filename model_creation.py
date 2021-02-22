@@ -38,6 +38,8 @@ val_ds = tf.keras.preprocessing.image_dataset_from_directory(
 
 # Class name prints (since using "inferred" labels, these should be the subdirectories)
 print(train_ds.class_names)
+class_names = train_ds.class_names
+
 print(val_ds.class_names)
 
 # Configuring dataset for performance
@@ -78,6 +80,23 @@ history = model.fit(
 )
 
 # Visualization on first 9 images in the training set
-figure_creation.save_first_9(train_ds)
+figure_creation.save_first_9(train_ds, class_names)
 # Save results of model accuracies
 figure_creation.save_training_results(history, epochs)
+
+# Testing Classification here, delete in full build:
+hand_path = "paper1.jpg"
+
+img = keras.preprocessing.image.load_img(
+    hand_path, target_size=(180, 180)
+)
+img_array = keras.preprocessing.image.img_to_array(img)
+img_array = tf.expand_dims(img_array, 0)  # Creating a batch
+
+predictions = model.predict(img_array)
+score = tf.nn.softmax(predictions[0])
+
+print(
+    "This image is most likely '{}', with a {:.2f} percent accuracy."
+    .format(class_names[np.argmax(score)], 100 * np.max(score))
+)
