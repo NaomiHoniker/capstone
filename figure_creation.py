@@ -1,13 +1,14 @@
 import matplotlib.pyplot as plt
 
 
-def save_first_9(train):
+def save_first_9(train, class_names):
     plt.figure(figsize=(10, 10))
     for images, labels in train.take(1):
         for i in range(9):
             ax = plt.subplot(3, 3, i + 1)
             plt.imshow(images[i].numpy().astype("uint8"))
-            plt.title(train.class_names[labels[i]])
+            # plt.title(train.class_names[labels[i]])
+            plt.title(class_names[labels[i]])
             plt.axis("off")
 
     plt.savefig("First 9 Images.png")
