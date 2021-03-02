@@ -1,12 +1,9 @@
-import os
 import tensorflow as tf
 
 from tensorflow import keras
-from tensorflow.keras import layers
-from tensorflow.keras.models import Sequential
+
 
 # Creation parameters
-import figure_creation
 
 
 def classification_test(model):

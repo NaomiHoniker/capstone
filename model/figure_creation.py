@@ -11,7 +11,7 @@ def save_first_9(train, class_names):
             plt.title(class_names[labels[i]])
             plt.axis("off")
 
-    plt.savefig("First 9 Images.png")
+    plt.savefig("visuals/First 9 Images.png")
 
 
 def save_training_results(history, epochs):
@@ -35,4 +35,4 @@ def save_training_results(history, epochs):
     plt.plot(epochs_range, val_loss, label='Validation Loss')
     plt.legend(loc='upper right')
     plt.title('Training and Validation Loss')
-    plt.savefig("Training and Validation Graphs.png")
+    plt.savefig("visuals/Training and Validation Graphs.png")

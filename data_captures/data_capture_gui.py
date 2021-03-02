@@ -1,5 +1,5 @@
 import PySimpleGUI as sg
-from capture import *
+from data_captures.gather_data import gather_data
 
 sg.theme('DarkGrey6')
 
