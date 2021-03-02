@@ -25,7 +25,8 @@ def single_capture():
         if trigger_rec:
             interest = frame[5: capture_zone-5, width-capture_zone+5: width-5]
 
-            cv2.imwrite("test_image", interest)
+            cv2.imwrite("../test_image.png", interest)
+            break
 
         else:
             cv2.imshow("Collecting images", frame)
@@ -33,6 +34,9 @@ def single_capture():
 
             if k == ord('q'):
                 break
+
+            if k == ord(' '):
+                trigger_rec = not trigger_rec
 
     capture.release()
     cv2.destroyAllWindows()

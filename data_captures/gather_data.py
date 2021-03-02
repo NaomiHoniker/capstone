@@ -53,7 +53,7 @@ def gather_data(letter_to_capture, num_samples, file_dir):
             cv2.imshow("Collecting images", frame)
             k = cv2.waitKey(1)
 
-            if k == ord('1'):
+            if k == ord(' '):
                 trigger_rec = not trigger_rec
                 class_name = letter_to_capture
 

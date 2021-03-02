@@ -9,6 +9,8 @@ from tensorflow.keras.models import Sequential
 # Creation parameters
 from model import figure_creation
 
+import capture
+
 img_folder_name = "../rps_image_set"
 
 batch_size = 32
@@ -85,10 +87,11 @@ figure_creation.save_first_9(train_ds, class_names)
 figure_creation.save_training_results(history, epochs)
 
 # Testing Classification here, delete in full build:
-hand_path = "../paper1.jpg"
+capture.single_capture()
+test_image = "../test_image.png"
 
 img = keras.preprocessing.image.load_img(
-    hand_path, target_size=(180, 180)
+    test_image, target_size=(180, 180)
 )
 img_array = keras.preprocessing.image.img_to_array(img)
 img_array = tf.expand_dims(img_array, 0)  # Creating a batch
