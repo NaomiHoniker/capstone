@@ -36,3 +36,14 @@ def save_training_results(history, epochs):
     plt.legend(loc='upper right')
     plt.title('Training and Validation Loss')
     plt.savefig("visuals/Training and Validation Graphs.png")
+
+
+def save_augmented_images(train, a_images):
+    plt.figure(figsize=(10, 10))
+    for images, _ in train.take(1):
+        for i in range(9):
+            augmented_images = a_images(images)
+            ax = plt.subplot(3, 3, i + 1)
+            plt.imshow(augmented_images[0].numpy().astype("uint8"))
+            plt.axis("off")
+            plt.savefig("visuals/Augmented Images.png")

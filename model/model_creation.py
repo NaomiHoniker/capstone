@@ -1,4 +1,3 @@
-import numpy as np
 import os
 import tensorflow as tf
 
@@ -8,8 +7,6 @@ from tensorflow.keras.models import Sequential
 
 # Creation parameters
 from model import figure_creation
-
-import capture
 
 img_folder_name = "../rps_image_set"
 
@@ -39,10 +36,7 @@ val_ds = tf.keras.preprocessing.image_dataset_from_directory(
     batch_size=batch_size)
 
 # Class name prints (since using "inferred" labels, these should be the subdirectories)
-print(train_ds.class_names)
 class_names = train_ds.class_names
-
-print(val_ds.class_names)
 
 # Configuring dataset for performance
 # Cache images once loaded off disk during first epoch. Reduces Bottleneck
@@ -53,11 +47,26 @@ val_ds = val_ds.cache().prefetch(buffer_size=tf.data.AUTOTUNE)
 # Begin model creation
 num_classes = len(next(os.walk(img_folder_name))[1])
 
+data_augmentation = keras.Sequential(
+    [
+        layers.experimental.preprocessing.RandomFlip("horizontal",
+                                                     input_shape=(img_height,
+                                                                  img_width,
+                                                                  3)),
+        layers.experimental.preprocessing.RandomRotation(0.1),
+        layers.experimental.preprocessing.RandomZoom(0.1),
+        layers.experimental.preprocessing.RandomContrast(0.15),
+    ]
+)
+
+figure_creation.save_augmented_images(train_ds, data_augmentation)
+
 # Standard model creation approach
 # 3 convolution blocks with max pool layer in each
 # Fully connected layer with 128 units on top
 model = Sequential([
     # Normalize RGB channel values for the neural net
+    data_augmentation,
     layers.experimental.preprocessing.Rescaling(1./255, input_shape=(img_height, img_width, 3)),
     layers.Conv2D(16, 3, padding='same', activation='relu'),
     layers.MaxPooling2D(),
@@ -65,6 +74,7 @@ model = Sequential([
     layers.MaxPooling2D(),
     layers.Conv2D(64, 3, padding='same', activation='relu'),
     layers.MaxPooling2D(),
+    layers.Dropout(0.15),
     layers.Flatten(),
     layers.Dense(128, activation='relu'),
     layers.Dense(num_classes)
@@ -74,7 +84,7 @@ model.compile(optimizer='adam',
               loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
               metrics=['accuracy'])
 
-epochs = 10
+epochs = 15
 history = model.fit(
     train_ds,
     validation_data=val_ds,
@@ -86,20 +96,9 @@ figure_creation.save_first_9(train_ds, class_names)
 # Save results of model accuracies
 figure_creation.save_training_results(history, epochs)
 
-# Testing Classification here, delete in full build:
-capture.single_capture()
-test_image = "../test_image.png"
-
-img = keras.preprocessing.image.load_img(
-    test_image, target_size=(180, 180)
-)
-img_array = keras.preprocessing.image.img_to_array(img)
-img_array = tf.expand_dims(img_array, 0)  # Creating a batch
-
-predictions = model.predict(img_array)
-score = tf.nn.softmax(predictions[0])
-
-print(
-    "This image is most likely '{}', with a {:.2f} percent accuracy."
-    .format(class_names[np.argmax(score)], 100 * np.max(score))
-)
+# Save the model
+model.save('rps_model')
+print(str(class_names))
+f = open("rps_model/model_classes.txt", 'w')
+f.write(str(class_names))
+f.close()
