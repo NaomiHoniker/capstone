@@ -1,6 +1,7 @@
 import tensorflow as tf
 from tensorflow import keras
 import numpy as np
+import cv2
 
 
 class RpsSavedModel:
@@ -21,7 +22,8 @@ class RpsSavedModel:
         predictions = self.model.predict(img_array)
         score = tf.nn.softmax(predictions[0])
 
-        print(
-            "This image is most likely '{}', with a {:.2f} percent accuracy."
-                .format(self.class_labels[np.argmax(score)], 100 * np.max(score))
-        )
+        text_prediction = "This image is most likely " + str(self.class_labels[np.argmax(score)]) + " with a " + str(
+            np.round(100 * np.max(score), 2)) + " percent accuracy."
+
+        print(text_prediction)
+        return text_prediction

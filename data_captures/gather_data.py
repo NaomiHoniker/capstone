@@ -9,7 +9,9 @@ def gather_data(letter_to_capture, num_samples, file_dir):
     capture = cv2.VideoCapture(0, cv2.CAP_DSHOW)
 
     trigger_rec = False
-    counter = image_num = 0
+    offset = 1000   # An adjustable offset, for taking additional pictures - set to 0 when done or making a new data set
+    counter = image_num = (0+offset)
+    num_samples += offset
 
     # Interest size, images are saved as capture_zone -10
     capture_zone = 234
