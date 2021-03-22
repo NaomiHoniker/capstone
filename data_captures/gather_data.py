@@ -9,9 +9,8 @@ def gather_data(letter_to_capture, num_samples, file_dir):
     capture = cv2.VideoCapture(0, cv2.CAP_DSHOW)
 
     trigger_rec = False
-    offset = 1000   # An adjustable offset, for taking additional pictures - set to 0 when done or making a new data set
-    counter = image_num = (0+offset)
-    num_samples += offset
+    counter = 0
+    image_num = num_samples
 
     # Interest size, images are saved as capture_zone -10
     capture_zone = 234
@@ -46,10 +45,10 @@ def gather_data(letter_to_capture, num_samples, file_dir):
             image_num += 1
 
             # Ensure existing Files in Session aren't overwritten
-            while os.path.exists(class_name + str(image_num) + ".jpg"):
+            while os.path.exists(now.strftime("%d.%m.%Y %H;%M;%S ") + class_name + str(image_num) + ".jpg"):
                 image_num += 1
 
-            cv2.imwrite((class_name + str(image_num) + ".jpg"), interest)
+            cv2.imwrite((now.strftime("%d.%m.%Y %H;%M;%S ") + class_name + str(image_num) + ".jpg"), interest)
 
         else:
             cv2.imshow("Collecting images", frame)
