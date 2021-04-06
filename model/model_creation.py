@@ -8,7 +8,9 @@ from tensorflow.keras.models import Sequential
 # Creation parameters
 from model import figure_creation
 
-img_folder_name = "../rps_image_set"
+image_set_name = "sign_language"
+
+img_folder_name = "../" + image_set_name + "_image_set"
 
 batch_size = 32
 img_height = 180
@@ -97,8 +99,7 @@ figure_creation.save_first_9(train_ds, class_names)
 figure_creation.save_training_results(history, epochs)
 
 # Save the model
-model.save('rps_model')
-print(str(class_names))
-f = open("rps_model/model_classes.txt", 'w')
+model.save(image_set_name + '_model')
+f = open(image_set_name + "/model_classes.txt", 'w')
 f.write(str(class_names))
 f.close()

@@ -12,7 +12,7 @@ capture_zone = 234
 # Width of frame from camera properties
 width = int(capture.get(3))
 
-rps_model = interpret.RpsSavedModel()
+model = interpret.SavedModel()
 
 while True:
     ret, frame = capture.read()
@@ -23,13 +23,13 @@ while True:
 
     interest = frame[5: capture_zone - 5, width - capture_zone + 5: width - 5]
     cv2.imwrite('img_to_interpret.png', interest)
-    text_prediction = rps_model.interpret()
+    text_prediction = model.interpret()
 
     # https://docs.opencv.org/3.4.1/d6/d6e/group__imgproc__draw.html#ga5126f47f883d730f633d74f07456c576
     cv2.putText(frame, text_prediction, (15, 15), cv2.FONT_HERSHEY_SIMPLEX,
                 .50, (255, 255, 255), 1)
 
-    cv2.imshow("Collecting images", frame)
+    cv2.imshow("Interpreting", frame)
     k = cv2.waitKey(1)
 
     if k == ord('q'):

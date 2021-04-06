@@ -1,13 +1,13 @@
 import tensorflow as tf
 from tensorflow import keras
 import numpy as np
-import cv2
 
 
-class RpsSavedModel:
+class SavedModel:
     def __init__(self):
-        self.model = tf.keras.models.load_model('model/rps_model')
-        f = open('model/rps_model/model_classes.txt', 'r')
+        set_name = "sign_language"
+        self.model = tf.keras.models.load_model('model/' + set_name + '_model')
+        f = open('model/' + set_name + '_model/model_classes.txt', 'r')
         string = f.read().strip('[').strip(']')
         self.class_labels = string.split(', ')
         print(self.class_labels)
