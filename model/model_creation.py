@@ -100,6 +100,6 @@ figure_creation.save_training_results(history, epochs)
 
 # Save the model
 model.save(image_set_name + '_model')
-f = open(image_set_name + "/model_classes.txt", 'w')
+f = open(image_set_name + "_model/model_classes.txt", 'w')
 f.write(str(class_names))
 f.close()

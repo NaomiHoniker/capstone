@@ -14,6 +14,8 @@ width = int(capture.get(3))
 
 model = interpret.SavedModel()
 
+output = ""
+
 while True:
     ret, frame = capture.read()
     frame = cv2.flip(frame, 1)
@@ -23,12 +25,14 @@ while True:
 
     interest = frame[5: capture_zone - 5, width - capture_zone + 5: width - 5]
     cv2.imwrite('img_to_interpret.png', interest)
-    text_prediction = model.interpret()
+    set_output, text_prediction = model.interpret()
 
-    # https://docs.opencv.org/3.4.1/d6/d6e/group__imgproc__draw.html#ga5126f47f883d730f633d74f07456c576
-    cv2.putText(frame, text_prediction, (15, 15), cv2.FONT_HERSHEY_SIMPLEX,
+    if set_output:
+        output += text_prediction
+
+    cv2.putText(frame, output, (15, 15), cv2.FONT_HERSHEY_SIMPLEX,
                 .50, (255, 255, 255), 1)
-
+    # https://docs.opencv.org/3.4.1/d6/d6e/group__imgproc__draw.html#ga5126f47f883d730f633d74f07456c576
     cv2.imshow("Interpreting", frame)
     k = cv2.waitKey(1)
 

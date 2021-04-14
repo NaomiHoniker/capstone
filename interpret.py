@@ -5,6 +5,8 @@ import numpy as np
 
 class SavedModel:
     def __init__(self):
+        self.outputDict = {}
+        self.dictIndex = 0
         set_name = "sign_language"
         self.model = tf.keras.models.load_model('model/' + set_name + '_model')
         f = open('model/' + set_name + '_model/model_classes.txt', 'r')
@@ -22,8 +24,29 @@ class SavedModel:
         predictions = self.model.predict(img_array)
         score = tf.nn.softmax(predictions[0])
 
-        text_prediction = "This image is most likely " + str(self.class_labels[np.argmax(score)]) + " with a " + str(
-            np.round(100 * np.max(score), 2)) + " percent accuracy."
+        text_prediction = str(self.class_labels[np.argmax(score)]).strip('\'')
 
-        print(text_prediction)
-        return text_prediction
+        set_output, output = self.key_value(text_prediction)
+
+        if set_output:
+            return True, output
+        else:
+            return False, output
+
+    def key_value(self, classification):
+        if classification not in self.outputDict:
+            self.outputDict[classification] = 1
+        else:
+            self.outputDict[classification] += 1
+        print(self.outputDict)
+        self.dictIndex += 1
+        if self.dictIndex >= 20:
+            d_max = max(self.outputDict, key=self.outputDict.get)
+            if self.outputDict[d_max] >= 15 and d_max != 'nothing':
+                self.dictIndex = 0
+                self.outputDict.clear()
+                return True, d_max
+            self.dictIndex = 0
+            self.outputDict.clear()
+        return False, ""
+
