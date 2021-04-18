@@ -39,5 +39,12 @@ while True:
     if k == ord('q'):
         break
 
+    if k == ord(' '):
+        output += " "
+
+    if k == ord('\b'):
+        output = output[:-1]
+
+
 capture.release()
 cv2.destroyAllWindows()
