@@ -4,6 +4,7 @@ import numpy as np
 import time
 from math import ceil
 
+
 class SavedModel:
     def __init__(self):
         self.outputDict = {}
