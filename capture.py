@@ -27,9 +27,12 @@ def capture(model_to_interpret):
         # Defining interest area
         cv2.rectangle(frame, (width - capture_zone, 0), (width, capture_zone), (0, 250, 150), 2)
 
-        interest = frame[5: capture_zone - 5, width - capture_zone + 5: width - 5]
-        cv2.imwrite('img_to_interpret.png', interest)
-        model.interpret()
+
+        # interest = frame[5: capture_zone - 5, width - capture_zone + 5: width - 5]
+        # cv2.imwrite('img_to_interpret.png', interest)
+        # model.interpret()
+
+        model.unique_key_functions(k)
 
         cv2.putText(frame, model.output, (15, 15), cv2.FONT_HERSHEY_SIMPLEX,
                     .50, (255, 255, 255), 1)
@@ -37,10 +40,10 @@ def capture(model_to_interpret):
         cv2.imshow("Interpreting", frame)
         k = cv2.waitKey(1)
 
-        model.keys(k)
+        # model.keys(k)
 
-        if k == ord('q'):
-            break
+        # if k == ord('q'):
+            # break
 
 
     capture.release()

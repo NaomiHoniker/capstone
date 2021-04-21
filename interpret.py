@@ -51,7 +51,7 @@ class SavedModel(ABC):
         pass
 
     @abstractmethod
-    def keys(self, key):
+    def unique_key_functions(self, key):
         pass
 
 
@@ -68,7 +68,7 @@ class SLType(SavedModel):
         self.output = self.output.replace("_", " ")
         return self.output
 
-    def keys(self, key):
+    def unique_key_functions(self, key):
         if key == ord(' '):
             self.output += "_"
 
@@ -88,6 +88,6 @@ class RPSType(SavedModel):
         self.output = new_addition
         return self.output
 
-    def keys(self, key):
+    def unique_key_functions(self, key):
         if key == ord('\b'):
             self.output = self.output[:-1]
