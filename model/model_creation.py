@@ -8,8 +8,11 @@ from tensorflow.keras.models import Sequential
 # Creation parameters
 from model import figure_creation
 
+# Set to create model
+# Everything else is variable to this, only place to change if switching models
 image_set_name = "sign_language"
 
+# EXAMPLE: ../sign_language_image_set
 img_folder_name = "../" + image_set_name + "_image_set"
 
 batch_size = 32
@@ -99,7 +102,11 @@ figure_creation.save_first_9(train_ds, class_names)
 figure_creation.save_training_results(history, epochs)
 
 # Save the model
+# EXAMPLE: sign_language_model
 model.save(image_set_name + '_model')
+
+# Open file within folder to store classification for interpreter use
+# EXAMPLE: sign_language_model/model.classes.txt
 f = open(image_set_name + "_model/model_classes.txt", 'w')
 f.write(str(class_names))
 f.close()

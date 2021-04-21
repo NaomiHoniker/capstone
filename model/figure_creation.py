@@ -2,12 +2,16 @@ import matplotlib.pyplot as plt
 
 
 def save_first_9(train, class_names):
+    """Creates image of first 9 images input into the model training set
+
+    Variable(s):
+        train: Training data set to gather images
+        class_names: Possible classifications
+    """
     plt.figure(figsize=(10, 10))
     for images, labels in train.take(1):
         for i in range(9):
-            ax = plt.subplot(3, 3, i + 1)
             plt.imshow(images[i].numpy().astype("uint8"))
-            # plt.title(train.class_names[labels[i]])
             plt.title(class_names[labels[i]])
             plt.axis("off")
 
@@ -15,6 +19,13 @@ def save_first_9(train, class_names):
 
 
 def save_training_results(history, epochs):
+    """Creates image of training graph history through epochs
+
+        Variable(s):
+            history: Training history and accuracy values
+            epochs: Number of total runs throughout model compilation
+    """
+
     acc = history.history['accuracy']
     val_acc = history.history['val_accuracy']
 
@@ -39,11 +50,16 @@ def save_training_results(history, epochs):
 
 
 def save_augmented_images(train, a_images):
+    """Creates image of first 9 augmented images input into the model training set
+
+        Variable(s):
+            train: Training data set to gather images
+            a_images: List of augmented images
+    """
     plt.figure(figsize=(10, 10))
     for images, _ in train.take(1):
         for i in range(9):
             augmented_images = a_images(images)
-            ax = plt.subplot(3, 3, i + 1)
             plt.imshow(augmented_images[0].numpy().astype("uint8"))
             plt.axis("off")
             plt.savefig("visuals/Augmented Images.png")

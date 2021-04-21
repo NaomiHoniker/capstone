@@ -4,6 +4,12 @@ import os
 
 
 def gather_data(letter_to_capture, num_samples, file_dir):
+    """Gather sequence creation and loop
+
+    Variable(s):
+        to_capture: String given for classification label
+        num_samples: The amount of sequential captures per click
+        file_dir: Directory to create and save file with images"""
 
     # Initialize camera
     capture = cv2.VideoCapture(0, cv2.CAP_DSHOW)
