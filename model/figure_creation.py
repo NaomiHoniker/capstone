@@ -54,7 +54,7 @@ def save_augmented_images(train, a_images):
 
         Variable(s):
             train: Training data set to gather images
-            a_images: List of augmented images
+            a_images: Applied augments to images
     """
     plt.figure(figsize=(10, 10))
     for images, _ in train.take(1):
