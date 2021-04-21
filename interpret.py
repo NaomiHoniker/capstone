@@ -65,7 +65,7 @@ class SLType(SavedModel):
 
     def output_to_screen(self, new_addition):
         self.output += new_addition
-        self.output.replace("_", " ")
+        self.output = self.output.replace("_", " ")
         return self.output
 
     def keys(self, key):
