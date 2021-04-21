@@ -3,19 +3,18 @@ from tensorflow import keras
 import numpy as np
 import time
 from math import ceil
+from abc import ABC, abstractmethod
+
+ACCURACY_TO_INTERPRET = .75
+SECONDS_TO_INTERPRET = 2
 
 
-class SavedModel:
+class SavedModel(ABC):
     def __init__(self):
-        self.outputDict = {}
-        self.dictIndex = 0
-        self.endTime = 0
-        set_name = "sign_language"
-        self.model = tf.keras.models.load_model('model/' + set_name + '_model')
-        f = open('model/' + set_name + '_model/model_classes.txt', 'r')
-        string = f.read().strip('[').strip(']')
-        self.class_labels = string.split(', ')
-        print(self.class_labels)
+        self.output_dict = {}
+        self.dict_index = 0
+        self.end_time = 0
+        self.output = ""
 
     def interpret(self):
         img = keras.preprocessing.image.load_img(
@@ -28,31 +27,67 @@ class SavedModel:
         score = tf.nn.softmax(predictions[0])
 
         text_prediction = str(self.class_labels[np.argmax(score)]).strip('\'')
-
-        set_output, output = self.key_value(text_prediction)
-
-        if set_output:
-            return True, output
-        else:
-            return False, output
+        self.key_value(text_prediction)
 
     def key_value(self, classification):
-        if classification not in self.outputDict:
-            self.outputDict[classification] = 1
+        if classification not in self.output_dict:
+            self.output_dict[classification] = 1
         else:
-            self.outputDict[classification] += 1
-        print(self.outputDict)
-        self.dictIndex += 1
-        if self.dictIndex == 1:
-            self.endTime = (time.time() + 3)
+            self.output_dict[classification] += 1
+        print(self.output_dict)
+        self.dict_index += 1
+        if self.dict_index == 1:
+            self.end_time = (time.time() + SECONDS_TO_INTERPRET)
         else:
-            if time.time() >= self.endTime:
-                d_max = max(self.outputDict, key=self.outputDict.get)
-                if self.outputDict[d_max] >= ceil(self.dictIndex * .75) and d_max != 'nothing':
-                    self.dictIndex = 0
-                    self.outputDict.clear()
-                    return True, d_max
-                self.dictIndex = 0
-                self.outputDict.clear()
-        return False, ""
+            if time.time() >= self.end_time:
+                d_max = max(self.output_dict, key=self.output_dict.get)
+                if self.output_dict[d_max] >= ceil(self.dict_index * ACCURACY_TO_INTERPRET) and d_max != 'nothing':
+                    self.output_to_screen(d_max)
+                self.dict_index = 0
+                self.output_dict.clear()
 
+    @abstractmethod
+    def output_to_screen(self, new_addition):
+        pass
+
+    @abstractmethod
+    def keys(self, key):
+        pass
+
+
+class SLType(SavedModel):
+    def __init__(self):
+        super().__init__()
+        self.model = tf.keras.models.load_model("model/sign_language_model")
+        f = open("model/sign_language_model/model_classes.txt", 'r')
+        self.class_labels = (f.read().strip('[').strip(']')).split(', ')
+        f.close()
+
+    def output_to_screen(self, new_addition):
+        self.output += new_addition
+        self.output.replace("_", " ")
+        return self.output
+
+    def keys(self, key):
+        if key == ord(' '):
+            self.output += "_"
+
+        if key == ord('\b'):
+            self.output = self.output[:-1]
+
+
+class RPSType(SavedModel):
+    def __init__(self):
+        super().__init__()
+        self.model = tf.keras.models.load_model("model/rps_model")
+        f = open("model/rps_model/model_classes.txt", 'r')
+        self.class_labels = (f.read().strip('[').strip(']')).split(', ')
+        f.close()
+
+    def output_to_screen(self, new_addition):
+        self.output = new_addition
+        return self.output
+
+    def keys(self, key):
+        if key == ord('\b'):
+            self.output = self.output[:-1]

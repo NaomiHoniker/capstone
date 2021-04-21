@@ -4,17 +4,13 @@ import interpret
 # Initialize camera
 capture = cv2.VideoCapture(0, cv2.CAP_DSHOW)
 
-trigger_rec = False
-
 # Interest size, images are saved as capture_zone -10
 capture_zone = 234
 
 # Width of frame from camera properties
 width = int(capture.get(3))
 
-model = interpret.SavedModel()
-
-output = ""
+model = interpret.SLType()
 
 while True:
     ret, frame = capture.read()
@@ -25,25 +21,18 @@ while True:
 
     interest = frame[5: capture_zone - 5, width - capture_zone + 5: width - 5]
     cv2.imwrite('img_to_interpret.png', interest)
-    set_output, text_prediction = model.interpret()
+    model.interpret()
 
-    if set_output:
-        output += text_prediction
-
-    cv2.putText(frame, output, (15, 15), cv2.FONT_HERSHEY_SIMPLEX,
+    cv2.putText(frame, model.output, (15, 15), cv2.FONT_HERSHEY_SIMPLEX,
                 .50, (255, 255, 255), 1)
     # https://docs.opencv.org/3.4.1/d6/d6e/group__imgproc__draw.html#ga5126f47f883d730f633d74f07456c576
     cv2.imshow("Interpreting", frame)
     k = cv2.waitKey(1)
 
+    model.keys(k)
+
     if k == ord('q'):
         break
-
-    if k == ord(' '):
-        output += " "
-
-    if k == ord('\b'):
-        output = output[:-1]
 
 
 capture.release()
