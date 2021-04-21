@@ -29,11 +29,10 @@ while True:
     cv2.imshow("Interpreting", frame)
     k = cv2.waitKey(1)
 
-    model.keys(k)
+    model.unique_key_functions(k)
 
     if k == ord('q'):
         break
-
 
 capture.release()
 cv2.destroyAllWindows()
