@@ -90,6 +90,7 @@ class SLType(SavedModel):
         f = open("model/sign_language_model/model_classes.txt", 'r')
         # Read class-labels and format
         self.class_labels = (f.read().strip('[').strip(']')).split(', ')
+        self.char_per_line = 30
         f.close()
 
     def output_to_screen(self, new_addition):
@@ -99,21 +100,49 @@ class SLType(SavedModel):
             new_addition: New classification determined by key_value function
         Return: New output string
         """
-        self.output += new_addition
+        # If the new addition is the 'shift' sign, call the shift_key function to check if
+        # the previous two letters need to be changed.
+        if new_addition == 'shift':
+            self.shift_key()
+        else:
+            self.output += new_addition
         # Underscore is used as a 'space' placeholder for easier understandability by user
         # Replace all underscores with spaces
         self.output = self.output.replace("_", " ")
+        # Automatically add a \n every 'char_per_line' characters in output
+        if (len(self.output) % self.char_per_line == 0) and (len(self.output) != 0):
+            self.output += "\n"
+
         return self.output
 
     def unique_key_functions(self, key):
         """Available unique key functions for model"""
         # Create space in output
         if key == ord(' '):
-            self.output += "_"
+            # self.output += "_"
+            self.output += "\r"
 
         # Delete last character in output
         if key == ord('\b'):
             self.output = self.output[:-1]
+
+
+    def shift_key(self):
+        """If the most recently read sign was the "shift" sign,
+        check the most recent 2 letters in the output.
+        "sh" -> "j"
+        "s" -> "z"
+        Workaround to account for letters not possible in our implementation.
+        Directly edits the last two letters of self.output
+        """
+        # If the last two letters of output are 's'...
+        if self.output[-1:] == 's':
+            # delete them and replace them with 'z'
+            self.output = self.output[:-1:] + 'z'
+        # If the last two letters of output are 'sh'...
+        elif self.output[-2:] == 'sh':
+            # delete them and replace them with 'j'
+            self.output = self.output[:-2:] + 'j'
 
 
 class RPSType(SavedModel):
