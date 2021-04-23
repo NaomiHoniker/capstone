@@ -120,7 +120,7 @@ class SLType(SavedModel):
         # Create space in output
         if key == ord(' '):
             # self.output += "_"
-            self.output += "\r"
+            self.output += " "
 
         # Delete last character in output
         if key == ord('\b'):
@@ -135,14 +135,14 @@ class SLType(SavedModel):
         Workaround to account for letters not possible in our implementation.
         Directly edits the last two letters of self.output
         """
-        # If the last two letters of output are 's'...
-        if self.output[-1:] == 's':
+        # If the last letter of output is 'd' (because it looks similar to z)...
+        if self.output[-1:] == 'd':
             # delete them and replace them with 'z'
             self.output = self.output[:-1:] + 'z'
-        # If the last two letters of output are 'sh'...
-        elif self.output[-2:] == 'sh':
+        # If the last letter of output is 'i' (because it looks similar to j)...
+        elif self.output[-1:] == 'i':
             # delete them and replace them with 'j'
-            self.output = self.output[:-2:] + 'j'
+            self.output = self.output[:-1:] + 'j'
 
 
 class RPSType(SavedModel):
