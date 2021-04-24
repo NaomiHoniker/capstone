@@ -172,4 +172,4 @@ class RPSType(SavedModel):
         """Available unique key functions for model"""
         # Delete last character in output
         if key == ord('\b'):
-            self.output = self.output[:-1]
+            self.output = ""
