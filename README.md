@@ -14,12 +14,14 @@ Project consists of using computer vision and machine learning techniques to ana
 
 **Pillow** - Adds image processing capabilities and more file format support
 
-# How To Install
+# How To Install Via Executable Installer
 **Executable Hosted Here: https://drive.google.com/file/d/1uGz3phFM2hXaAPh26OM_whMURyjBkYx7/view?usp=sharing**<br>
-Git LFS is having issues correctly uploading the exe, will add it to the repo once this is figured out.<br>
-To simply use the interpreter, head over to the "client-executable" branch and pull/download the files included. Run the .exe installer which will give access to all of the above frameworks/libraries for use within the software.
+Run the .exe installer which will give access to all of the above frameworks/libraries for use within the software.
 
-Once the installer has run, open the "capstone" folder and run the "capture_gui.exe" file to begin the interpreter. This may take a few minutes and depending on your system, the console ouput may throw you some tensorflow error, but rest assureced these should not prevent you from utilizing the software
+Once the installer has run, open the "capstone" folder and run the "capture_gui.exe" file to begin the interpreter. This may take a few minutes and depending on your system, the console ouput may throw you some tensorflow error, but rest assureced these should not prevent you from utilizing the software.
+
+# How To Install Via Python Project System<br>
+Pull the project, direct your favorite IDE to its contents, and run the capture_gui.py file to begin running.
 
 # How to Use
 Once the program is running, a simple GUI will appear asking for a model to use. The default models included are one for Rock, Paper, Scissor, and another for Sign Language Fingerspelling. Pick your desired model to test out and the program will then access your camera and begin the interpretation system.
