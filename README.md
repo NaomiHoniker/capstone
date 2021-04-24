@@ -15,6 +15,8 @@ Project consists of using computer vision and machine learning techniques to ana
 **Pillow** - Adds image processing capabilities and more file format support
 
 # How To Install
+**Executable Hosted Here: https://drive.google.com/file/d/1uGz3phFM2hXaAPh26OM_whMURyjBkYx7/view?usp=sharing**<br>
+Git LFS is having issues correctly uploading the exe, will add it to the repo once this is figured out.<br>
 To simply use the interpreter, head over to the "client-executable" branch and pull/download the files included. Run the .exe installer which will give access to all of the above frameworks/libraries for use within the software.
 
 Once the installer has run, open the "capstone" folder and run the "capture_gui.exe" file to begin the interpreter. This may take a few minutes and depending on your system, the console ouput may throw you some tensorflow error, but rest assureced these should not prevent you from utilizing the software
