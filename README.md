@@ -21,7 +21,7 @@ Run the .exe installer which will give access to all of the above frameworks/lib
 Once the installer has run, open the "capstone" folder and run the "capture_gui.exe" file to begin the interpreter. This may take a few minutes and depending on your system, the console ouput may throw you some tensorflow error, but rest assureced these should not prevent you from utilizing the software.
 
 # How To Install Via Python Project System<br>
-Pull the project, direct your favorite IDE to its contents, and run the capture_gui.py file to begin running.
+Pull the project, direct your favorite IDE to its contents, and run the capture_gui.py file to begin running. Be sure to have all of the available frameworks/libraries installed within an environment your interpreter has access to as downlaoding this way will NOT install the necessary dependencies.
 
 # How to Use
 Once the program is running, a simple GUI will appear asking for a model to use. The default models included are one for Rock, Paper, Scissor, and another for Sign Language Fingerspelling. Pick your desired model to test out and the program will then access your camera and begin the interpretation system.
