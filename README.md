@@ -36,11 +36,11 @@ The system makes an interpretation every 2 seconds, and must reach an overall ac
 
 " "(Spacebar) can be used to create a space within the printed interpretation.
 
-**Symbols**
+**Symbols:**<br>
 Reference: https://s3.amazonaws.com/coursestorm/live/media/915bc8ad95b811e88ea30e92b056efc0 <br/>
 The above image symbols were used as a reference when taking images to put into the model.
 
-**Z and J**
+**Z and J:**<br>
 The letters "Z" and "J" are moving symbols, which our interpretor doesn't currently have logic to interpret correctly, especially since they're nearly copies of non-moving letters.
 
 "Z"
