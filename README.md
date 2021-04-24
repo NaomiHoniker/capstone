@@ -27,17 +27,17 @@ Ensure you're in a well-lit room with a simple background for best use.
 The system makes an interpretation every 2 seconds, and must reach an overall accuracy for a single symbol of 75% to print the given symbol. The dictionary output to the console is used to show which symbols were calculated during that sequence. The "Q" key can be used anytime during the interpretation system to return back to the model selection window.
 
 # The Rock, Paper, Scissor Model
-**Unique Key Functions:**
+**Unique Key Functions:**<br/>
 "\b" (Backspace) can be used to delete the current printed interpretation.
 
 # Sign Language Fingerspelling Model
-**Unique Key Functions:**
+**Unique Key Functions:**<br/>
 "\b" (Backspace) can be used to delete the last input letter.
 
 " "(Spacebar) can be used to create a space within the printed interpretation.
 
 **Symbols**
-Reference: https://s3.amazonaws.com/coursestorm/live/media/915bc8ad95b811e88ea30e92b056efc0
+Reference: https://s3.amazonaws.com/coursestorm/live/media/915bc8ad95b811e88ea30e92b056efc0 <br/>
 The above image symbols were used as a reference when taking images to put into the model.
 
 **Z and J**
