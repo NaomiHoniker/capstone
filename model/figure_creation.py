@@ -11,6 +11,7 @@ def save_first_9(train, class_names):
     plt.figure(figsize=(10, 10))
     for images, labels in train.take(1):
         for i in range(9):
+            ax = plt.subplot(3, 3, i + 1)
             plt.imshow(images[i].numpy().astype("uint8"))
             plt.title(class_names[labels[i]])
             plt.axis("off")
@@ -59,6 +60,7 @@ def save_augmented_images(train, a_images):
     plt.figure(figsize=(10, 10))
     for images, _ in train.take(1):
         for i in range(9):
+            ax = plt.subplot(3, 3, i + 1)
             augmented_images = a_images(images)
             plt.imshow(augmented_images[0].numpy().astype("uint8"))
             plt.axis("off")
