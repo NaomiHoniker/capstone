@@ -1,5 +1,5 @@
 # Champlain College Hand Symbol Interpreter
-Created by Richard Honiker and Trevor Amell's to complete Champlain College Computer Science and Innovation Capstone project requirement.
+Created by Naomi Honiker and Trevor Amell's to complete Champlain College Computer Science and Innovation Capstone project requirement.
 
 Project consists of using computer vision and machine learning techniques to analyze American Sign Language hand signs to interpret them into words in hopes to bridge the gap of communication between the hearing-abled and hearing-disabled.
 
